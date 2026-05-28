@@ -10,13 +10,14 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import TagBadges from '@/components/graph/tag-badges';
+import CustomHandle from '@/components/graph/custom-handle';
 
 const ThoughtNode: React.FC<NodeProps<ThoughtNodeType>> = ({
   data: { mood, text, date, image, title, tags },
 }) => {
   return (
     <>
-      <Handle type="target" position={Position.Left} isConnectable />
+      <CustomHandle type="target" position={Position.Left} isConnectable />
       <Card className="relative overflow-hidden border-solid border-white rounded-2xl">
         {/* Background image */}
         <div
@@ -40,7 +41,7 @@ const ThoughtNode: React.FC<NodeProps<ThoughtNodeType>> = ({
           <CardFooter className="text-foreground/70 text-xs">{date}</CardFooter>
         </div>
       </Card>
-      <Handle type="source" position={Position.Right} isConnectable />
+      <CustomHandle type="source" position={Position.Right} isConnectable />
     </>
   );
 };
