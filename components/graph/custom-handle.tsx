@@ -1,6 +1,5 @@
 import React from 'react';
 import { Handle, HandleProps } from '@xyflow/react';
-import { Circle } from 'lucide-react';
 
 const CustomHandle: React.FC<HandleProps> = (props) => {
   // Color should be dynamic
