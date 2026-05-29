@@ -74,7 +74,7 @@ const Graph = () => {
         style={{
           background: `
             radial-gradient(circle at top left, var(--accent), transparent 25%),
-            radial-gradient(circle at bottom right, var(--calm-mood), transparent 30%)
+            radial-gradient(circle at bottom right, #05422D, transparent 30%)
           `,
         }}
         colorMode="dark"
