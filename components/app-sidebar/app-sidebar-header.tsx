@@ -16,7 +16,6 @@ const AppSidebarHeader: React.FC = () => {
                 rounded-2xl
                 bg-linear-to-br
                 from-primary to-accent
-                shadow-[0_0_60px_var(--primary)]
               "
         >
           <BrainCircuit className="h-7 w-7" />

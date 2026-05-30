@@ -4,6 +4,7 @@ import './globals.css';
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -18,16 +19,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={cn('h-full', 'antialiased', 'font-sans', inter.variable)}
-    >
-      <body className="min-h-full flex flex-col">
-        <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html
+        lang="en"
+        suppressHydrationWarning
+        className={cn('h-full', 'antialiased', 'font-sans', inter.variable)}
+      >
+        <body className="min-h-full flex flex-col">
+          <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
