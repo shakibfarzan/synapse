@@ -6,9 +6,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
-        <SidebarTrigger className="bg-secondary m-2" />
-        <main className="p-2">{children}</main>
+      <SidebarInset className="flex h-screen flex-col relative">
+        <SidebarTrigger className="bg-secondary m-2 absolute z-50" />
+        <main className="flex-1">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );

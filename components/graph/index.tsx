@@ -15,6 +15,7 @@ import {
 import ThoughtNode from '@/components/graph/thought-node';
 import CustomEdge from '@/components/graph/custom-edge';
 import MiniMap from '@/components/graph/mini-map';
+import '@xyflow/react/dist/style.css';
 
 const initialNodes: ThoughtNodeType[] = [
   {
@@ -31,7 +32,7 @@ const initialNodes: ThoughtNodeType[] = [
   },
   {
     id: 'n2',
-    position: { x: 100, y: 100 },
+    position: { x: 800, y: 200 },
     data: {
       title: 'Dark Ambient EP Concept',
       text: 'I want to create an EP that feels like a rainy night in a forgotten city.',
@@ -69,7 +70,7 @@ const Graph = () => {
     []
   );
   return (
-    <div style={{ height: '100vh', width: '100vw' }}>
+    <div className="w-full h-full">
       <ReactFlow
         style={{
           background: `
