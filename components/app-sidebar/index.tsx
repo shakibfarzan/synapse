@@ -1,14 +1,12 @@
 'use client';
 
-import { Sidebar, SidebarContent, SidebarFooter } from '@/components/ui/sidebar';
+import { Sidebar, SidebarContent } from '@/components/ui/sidebar';
 
 import { Separator } from '@/components/ui/separator';
 import AppSidebarHeader from '@/components/app-sidebar/app-sidebar-header';
 import AppSidebarMenu from '@/components/app-sidebar/app-sidebar-menu';
 import AppSidebarMoods from '@/components/app-sidebar/app-sidebar-moods';
 import AppSidebarTags from '@/components/app-sidebar/app-sidebar-tags';
-import { UserButton } from '@clerk/nextjs';
-import { shadcn } from '@clerk/themes';
 import AppSidebarFooter from '@/components/app-sidebar/app-sidebar-footer';
 
 export function AppSidebar() {
