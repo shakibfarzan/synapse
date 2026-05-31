@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Mood {
+  DREAMY
+  DARK
+  CALM
+  CHAOTIC
+}
+
+model User {
+  id        String   @id
+  email     String   @unique
+  imageUrl  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  thoughts  Thought[]
+
+  @@index([email])
+}
+
+model Thought {
+  id          String   @id @default(cuid())
+
+  title       String
+  content     String   @db.Text
+
+  mood        Mood
+
+  isFavorite  Boolean  @default(false)
+  isArchived  Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId      String
+  user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tags        ThoughtTag[]
+
+  outgoing    Connection[] @relation("Outgoing")
+  incoming    Connection[] @relation("Incoming")
+
+  @@index([userId])
+  @@index([mood])
+  @@index([createdAt])
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+
+  name      String
+
+  userId    String
+
+  createdAt DateTime @default(now())
+
+  thoughts  ThoughtTag[]
+
+  @@unique([userId, name])
+  @@index([userId])
+}
+
+model ThoughtTag {
+  thoughtId String
+  tagId     String
+
+  thought   Thought @relation(fields: [thoughtId], references: [id], onDelete: Cascade)
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([thoughtId, tagId])
+}
+
+model Connection {
+  id        String   @id @default(cuid())
+
+  sourceId  String
+  targetId  String
+
+  label     String?
+
+  createdAt DateTime @default(now())
+
+  source Thought @relation("Outgoing", fields: [sourceId], references: [id], onDelete: Cascade)
+
+  target Thought @relation("Incoming", fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@index([sourceId])
+  @@index([targetId])
+
+  @@unique([sourceId, targetId])
+}

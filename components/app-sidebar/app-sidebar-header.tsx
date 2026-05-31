@@ -25,7 +25,7 @@ const AppSidebarHeader: React.FC = () => {
         className="font-medium shadow-[0_0_60px_var(--primary)]"
       >
         <div className="flex items-center gap-3 relative">
-          <Plus className="h-5 w-5 absolute -left-8" />
+          <Plus className="h-5 w-5 absolute -left-6" />
           New Thought
         </div>
       </Button>
