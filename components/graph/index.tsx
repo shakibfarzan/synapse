@@ -16,6 +16,7 @@ import ThoughtNode from '@/components/graph/thought-node';
 import CustomEdge from '@/components/graph/custom-edge';
 import MiniMap from '@/components/graph/mini-map';
 import '@xyflow/react/dist/style.css';
+import StarField from '@/components/star-field';
 
 const initialNodes: ThoughtNodeType[] = [
   {
@@ -70,12 +71,13 @@ const Graph = () => {
     []
   );
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
+      <StarField />
       <ReactFlow
         style={{
           background: `
             radial-gradient(circle at top left, var(--accent), transparent 25%),
-            radial-gradient(circle at bottom right, #05422D, transparent 30%)
+            radial-gradient(circle at bottom right, #05422D, transparent 25%)
           `,
         }}
         colorMode="dark"

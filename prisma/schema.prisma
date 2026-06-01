@@ -39,6 +39,7 @@ model Thought {
   content     String   @db.Text
 
   mood        Mood
+  imageUrl    String?
 
   isFavorite  Boolean  @default(false)
   isArchived  Boolean  @default(false)
