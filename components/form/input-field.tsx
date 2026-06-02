@@ -1,23 +1,23 @@
 import React from 'react';
 import { FormProps } from '@/components/form/form.types';
-import { Controller } from 'react-hook-form';
+import { Controller, FieldValues } from 'react-hook-form';
 import { Field, FieldError, FieldLabel } from '../ui/field';
 import RequiredSign from './required-sign';
 import { Input } from '../ui/input';
 
-type Props = FormProps & {
+type Props<T extends FieldValues> = FormProps<T> & {
   placeholder?: string;
   className?: string;
 };
 
-const InputField: React.FC<Props> = ({
+function InputField<T extends FieldValues>({
   className,
   name,
-  placeholder,
-  label,
   control,
   isRequired,
-}) => {
+  placeholder,
+  label,
+}: Props<T>) {
   return (
     <Controller
       control={control}
@@ -43,6 +43,6 @@ const InputField: React.FC<Props> = ({
       name={name}
     />
   );
-};
+}
 
 export default InputField;

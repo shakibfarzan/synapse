@@ -1,11 +1,11 @@
-import { Control, FieldValues } from 'react-hook-form';
+import { Control, FieldValues, Path } from 'react-hook-form';
 import React from 'react';
 
-export type FormProps = {
-  name: string;
+export type FormProps<T extends FieldValues> = {
+  name: Path<T>;
   label: string;
   isRequired?: boolean;
-  control?: Control<FieldValues, any, FieldValues>;
+  control?: Control<T, any, T>;
 };
 
 export type Option = {

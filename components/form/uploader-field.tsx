@@ -1,4 +1,4 @@
-import { Controller } from 'react-hook-form';
+import { Controller, FieldValues } from 'react-hook-form';
 import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 import { Accept } from 'react-dropzone';
 import React from 'react';
@@ -6,28 +6,27 @@ import RequiredSign from '@/components/form/required-sign';
 import { FormProps } from './form.types';
 import Uploader from '@/components/uploader';
 
-type Props = FormProps & {
+type Props<T extends FieldValues> = FormProps<T> & {
   accept?: Accept;
   maxSizeMB?: number;
   maxFiles?: number;
   labelClassName?: string;
 };
 
-const UploaderField: React.FC<Props> = ({
-  name,
-  label,
+function UploaderField<T extends FieldValues>({
   control,
   accept,
   maxSizeMB,
   maxFiles,
-  labelClassName = '',
+  labelClassName,
+  label,
+  name,
   isRequired,
-}) => {
+}: Props<T>) {
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue={[]}
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
           <FieldLabel className={labelClassName}>
@@ -48,6 +47,6 @@ const UploaderField: React.FC<Props> = ({
       )}
     />
   );
-};
+}
 
 export default UploaderField;

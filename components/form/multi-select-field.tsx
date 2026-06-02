@@ -1,27 +1,27 @@
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, FieldValues } from 'react-hook-form';
 import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 import RequiredSign from '@/components/form/required-sign';
 import MultiSelect from '@/components/ui/multi-select';
 import { FormProps, Option } from '@/components/form/form.types';
 
-type Props = FormProps & {
+type Props<T extends FieldValues> = FormProps<T> & {
   placeholder?: string;
   options: Option[];
   className?: string;
   isMultiSelect?: boolean;
 };
 
-const MultiSelectField: React.FC<Props> = ({
+function MultiSelectField<T extends FieldValues>({
+  isMultiSelect,
   options,
-  placeholder,
-  label,
+  className,
   name,
   control,
-  className,
   isRequired,
-  isMultiSelect = true,
-}) => {
+  label,
+  placeholder,
+}: Props<T>) {
   return (
     <Controller
       name={name}
@@ -47,6 +47,6 @@ const MultiSelectField: React.FC<Props> = ({
       )}
     />
   );
-};
+}
 
 export default MultiSelectField;

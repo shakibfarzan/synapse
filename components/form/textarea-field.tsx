@@ -1,25 +1,27 @@
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, FieldValues } from 'react-hook-form';
 import { Field, FieldDescription, FieldError, FieldLabel } from '@/components/ui/field';
 import { Textarea } from '@/components/ui/textarea';
 import RequiredSign from '@/components/form/required-sign';
 import { FormProps } from '@/components/form/form.types';
 
-type Props = FormProps & {
+type Props<T extends FieldValues> = FormProps<T> & {
   placeholder?: string;
   className?: string;
   fieldDescription?: string;
+  rows?: number;
 };
 
-const TextareaField: React.FC<Props> = ({
+function TextareaField<T extends FieldValues>({
+  fieldDescription,
   className,
   name,
-  fieldDescription,
-  label,
-  placeholder,
   control,
   isRequired,
-}) => {
+  placeholder,
+  label,
+  rows,
+}: Props<T>) {
   return (
     <Controller
       name={name}
@@ -36,6 +38,7 @@ const TextareaField: React.FC<Props> = ({
             aria-invalid={fieldState.invalid}
             placeholder={placeholder}
             className={className}
+            rows={rows}
           />
           {fieldDescription && <FieldDescription>{fieldDescription}</FieldDescription>}
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -43,6 +46,6 @@ const TextareaField: React.FC<Props> = ({
       )}
     />
   );
-};
+}
 
 export default TextareaField;

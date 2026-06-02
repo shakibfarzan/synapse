@@ -1,5 +1,5 @@
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, FieldValues } from 'react-hook-form';
 
 import { FormProps, Option } from '@/components/form/form.types';
 
@@ -8,21 +8,21 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 import RequiredSign from './required-sign';
 
-type Props = FormProps & {
+type Props<T extends FieldValues> = FormProps<T> & {
   options: Option[];
   className?: string;
   itemClassName?: string | ((value: string) => string);
 };
 
-const ToggleGroupField: React.FC<Props> = ({
-  name,
-  label,
-  control,
-  isRequired,
+function ToggleGroupField<T extends FieldValues>({
   className,
   options,
   itemClassName,
-}) => {
+  name,
+  control,
+  isRequired,
+  label,
+}: Props<T>) {
   return (
     <Controller
       name={name}
@@ -49,7 +49,7 @@ const ToggleGroupField: React.FC<Props> = ({
                 key={option.value}
                 value={option.value}
                 className={
-                  !!itemClassName
+                  itemClassName
                     ? typeof itemClassName === 'string'
                       ? itemClassName
                       : itemClassName(option.value)
@@ -66,6 +66,6 @@ const ToggleGroupField: React.FC<Props> = ({
       )}
     />
   );
-};
+}
 
 export default ToggleGroupField;
