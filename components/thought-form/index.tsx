@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { thoughtFormSchema, ThoughtFormValues } from '@/lib/schemas/thought.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,13 +7,10 @@ import { Mood } from '@/lib/generated/prisma/enums';
 import { FieldGroup, FieldLegend, FieldSet } from '@/components/ui/field';
 import InputField from '@/components/form/input-field';
 import TextareaField from '@/components/form/textarea-field';
-import ToggleGroupField from '@/components/form/toggle-group-field';
-import { MOODS } from '@/constants/moods';
-import { Option } from '@/components/form/form.types';
-import MultiSelectField from '@/components/form/multi-select-field';
 import UploaderField from '@/components/form/uploader-field';
-import { cn } from '@/lib/utils';
 import StarField from '@/components/star-field';
+import MoodsField from '@/components/thought-form/moods-field';
+import TagsField from '@/components/thought-form/tags-field';
 
 const ThoughtForm: React.FC = () => {
   const form = useForm({
@@ -26,20 +23,6 @@ const ThoughtForm: React.FC = () => {
       title: '',
     },
   });
-
-  const moodsOptions = useMemo<Option[]>(
-    () =>
-      Object.values(MOODS).map((mood) => ({
-        value: mood.key,
-        label: () => (
-          <div className="flex items-center gap-2">
-            <span className="size-2 rounded-full bg-current" />
-            {mood.title}
-          </div>
-        ),
-      })),
-    []
-  );
 
   function onSubmit(data: ThoughtFormValues) {
     // Do something with the form values.
@@ -76,29 +59,10 @@ const ThoughtForm: React.FC = () => {
               placeholder="Write your thoughts here..."
               rows={8}
             />
-            <ToggleGroupField
-              name="mood"
-              label="Mood"
-              options={moodsOptions}
-              control={form.control}
-              itemClassName={(value) =>
-                cn(
-                  'cursor-pointer h-14 rounded-2xl border border-border transition-all',
-                  MOODS[value as keyof typeof MOODS].activeClasses
-                )
-              }
-              isRequired
-            />
+            <MoodsField control={form.control} />
           </FieldGroup>
           <FieldGroup className="w-full sm:w-1/2 flex flex-col">
-            <MultiSelectField
-              name="tags"
-              label="Tags"
-              options={[]}
-              isMultiSelect
-              control={form.control}
-              placeholder="Add tags..."
-            />
+            <TagsField control={form.control} />
             <UploaderField
               name="image"
               label="Image"

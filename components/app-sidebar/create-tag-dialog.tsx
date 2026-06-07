@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { CreateTagInput, createTagSchema } from '@/lib/schemas/tag.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import useAction from '@/hooks/use-action';
-import { createTagAction } from '@/app/actions';
+import { createTagAction } from '@/actions/tags';
 import {
   Dialog,
   DialogContent,

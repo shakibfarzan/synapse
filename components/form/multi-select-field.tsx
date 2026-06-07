@@ -10,6 +10,7 @@ type Props<T extends FieldValues> = FormProps<T> & {
   options: Option[];
   className?: string;
   isMultiSelect?: boolean;
+  disabled?: boolean;
 };
 
 function MultiSelectField<T extends FieldValues>({
@@ -21,6 +22,7 @@ function MultiSelectField<T extends FieldValues>({
   isRequired,
   label,
   placeholder,
+  disabled,
 }: Props<T>) {
   return (
     <Controller
@@ -33,6 +35,7 @@ function MultiSelectField<T extends FieldValues>({
             {isRequired && <RequiredSign />}
           </FieldLabel>
           <MultiSelect
+            disabled={disabled}
             hidePlaceholderWhenSelected
             className={className}
             value={field.value}

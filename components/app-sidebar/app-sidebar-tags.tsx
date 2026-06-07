@@ -3,7 +3,7 @@ import { SidebarGroup, SidebarGroupContent, SidebarGroupLabel } from '@/componen
 import { Badge } from '@/components/ui/badge';
 import CreateTagDialog from '@/components/app-sidebar/create-tag-dialog';
 import useAction from '@/hooks/use-action';
-import { getTagsWithCountAction } from '@/app/actions';
+import { getTagsWithCountAction } from '@/actions/tags';
 import { Spinner } from '@/components/ui/spinner';
 
 const AppSidebarTags = () => {

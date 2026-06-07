@@ -24,3 +24,7 @@ export async function getTagsWithCount(userId: string) {
     },
   });
 }
+
+export async function getTags(userId: string) {
+  return prisma.tag.findMany({ where: { userId } });
+}
