@@ -1,10 +1,7 @@
 'use client';
 import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  thoughtFormSchema,
-  ThoughtFormValues,
-} from '@/components/thought-form/thought-form-schema';
+import { thoughtFormSchema, ThoughtFormValues } from '@/lib/schemas/thought.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Mood } from '@/lib/generated/prisma/enums';
 import { FieldGroup, FieldLegend, FieldSet } from '@/components/ui/field';
@@ -16,6 +13,7 @@ import { Option } from '@/components/form/form.types';
 import MultiSelectField from '@/components/form/multi-select-field';
 import UploaderField from '@/components/form/uploader-field';
 import { cn } from '@/lib/utils';
+import StarField from '@/components/star-field';
 
 const ThoughtForm: React.FC = () => {
   const form = useForm({
@@ -48,7 +46,17 @@ const ThoughtForm: React.FC = () => {
     console.log(data);
   }
   return (
-    <form className="sm:p-16 p-10" onSubmit={form.handleSubmit(onSubmit)}>
+    <form
+      className="sm:p-16 p-10 relative h-full"
+      style={{
+        background: `
+            radial-gradient(circle at top left, var(--accent), transparent 10%),
+            radial-gradient(circle at bottom right, var(--accent), transparent 25%)
+          `,
+      }}
+      onSubmit={form.handleSubmit(onSubmit)}
+    >
+      <StarField />
       <FieldSet className="w-full">
         <FieldLegend>New Thought</FieldLegend>
         <FieldGroup className="flex w-full flex-col sm:flex-row">

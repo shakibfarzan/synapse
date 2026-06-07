@@ -1,46 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SidebarGroup, SidebarGroupContent, SidebarGroupLabel } from '@/components/ui/sidebar';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
-const tags = [
-  {
-    name: 'music',
-    count: 6,
-  },
-  {
-    name: 'inspiration',
-    count: 4,
-  },
-  {
-    name: 'ideas',
-    count: 7,
-  },
-  {
-    name: 'anxiety',
-    count: 3,
-  },
-];
+import CreateTagDialog from '@/components/app-sidebar/create-tag-dialog';
+import useAction from '@/hooks/use-action';
+import { getTagsWithCountAction } from '@/app/actions';
+import { Spinner } from '@/components/ui/spinner';
 
 const AppSidebarTags = () => {
+  const { execute: fetchTags, data: tags, error, isPending } = useAction(getTagsWithCountAction);
+
+  useEffect(() => {
+    (async () => {
+      await fetchTags(undefined);
+    })();
+  }, [fetchTags]);
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel
         className="
+                flex items-center justify-between w-full
                 mb-4 px-2
                 text-xs tracking-[0.25em]
-                text-zinc-500
+                text-foreground/50
               "
       >
         TAGS
+        <CreateTagDialog onCreated={() => fetchTags(undefined)} />
       </SidebarGroupLabel>
 
       <SidebarGroupContent>
-        <div className="flex flex-wrap gap-3 px-2">
-          {tags.map((tag) => (
-            <Tag key={tag.name} {...tag} />
-          ))}
-        </div>
+        {isPending ? (
+          <Spinner />
+        ) : tags?.length ? (
+          <div className="flex flex-wrap gap-3 px-2">
+            {tags.map((tag) => (
+              <Tag key={tag.name} name={tag.name} count={tag._count.thoughts} />
+            ))}
+          </div>
+        ) : (
+          <div className="flex justify-center text-muted-foreground">No tags found</div>
+        )}
       </SidebarGroupContent>
     </SidebarGroup>
   );
