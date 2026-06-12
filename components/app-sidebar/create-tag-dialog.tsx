@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { CreateTagInput, createTagSchema } from '@/lib/schemas/tag.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import useAction from '@/hooks/use-action';
-import { createTagAction } from '@/actions/tags';
+import { createTagAction } from '@/actions/tag';
 import {
   Dialog,
   DialogContent,
@@ -17,11 +17,13 @@ import { Button } from '../ui/button';
 import { Plus } from 'lucide-react';
 import InputField from '@/components/form/input-field';
 import { Spinner } from '@/components/ui/spinner';
+import { useRouter } from 'next/navigation';
 type CreateTagDialogProps = {
   onCreated?: () => void;
 };
 
 const CreateTagDialog: React.FC<CreateTagDialogProps> = ({ onCreated }) => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
 
   const form = useForm<CreateTagInput>({
@@ -36,6 +38,7 @@ const CreateTagDialog: React.FC<CreateTagDialogProps> = ({ onCreated }) => {
       form.reset();
       setOpen(false);
       onCreated?.();
+      router.refresh();
     },
   });
 
